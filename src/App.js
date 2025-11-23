@@ -1,8 +1,14 @@
-import React from "react";
-import PdfPreviewPage from "./PdfPreviewPage";
+
+import React from 'react';
+import PdfViewer from './PdfViewer';
+import './App.css';
 
 function App() {
-  return <PdfPreviewPage />;
+  return (
+    <div className="App">
+      <PdfViewer />
+    </div>
+  );
 }
 
 export default App;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Document, Page } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css"; 
+import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import {
   FiZoomIn,
@@ -20,7 +20,8 @@ export default function PdfViewer({ src }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const updateWidth = () => setPageWidth(Math.min(900, window.innerWidth - 80));
+    const updateWidth = () =>
+      setPageWidth(Math.min(900, window.innerWidth - 80));
     updateWidth();
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
@@ -38,8 +39,8 @@ export default function PdfViewer({ src }) {
     if (!numPages) return;
 
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setCurrentPage(+entry.target.getAttribute("data-page-number"));
           }
@@ -48,35 +49,25 @@ export default function PdfViewer({ src }) {
       { root: containerRef.current, threshold: 0.6 }
     );
 
-    pageRefs.current.forEach(ref => ref.current && observer.observe(ref.current));
+    pageRefs.current.forEach(
+      (ref) => ref.current && observer.observe(ref.current)
+    );
     return () => observer.disconnect();
   }, [numPages]);
 
-  const zoomIn = () => setScale(s => Math.min(3, s + 0.25));
-  const zoomOut = () => setScale(s => Math.max(0.5, s - 0.25));
+  const zoomIn = () => setScale((s) => Math.min(3, s + 0.25));
+  const zoomOut = () => setScale((s) => Math.max(0.5, s - 0.25));
   const resetZoom = () => setScale(1);
-  const goToPage = n => {
+
+  const goToPage = (n) => {
     const ref = pageRefs.current[n - 1];
     if (ref?.current) ref.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="pdf-root">
-
       {/* Top Toolbar */}
       <div className="toolbar">
-        <div className="toolbar-left">
-          <button className="btn" onClick={zoomOut}>
-            <FiZoomOut />
-          </button>
-          <button className="btn" onClick={resetZoom}>
-            <FiRefreshCcw />
-          </button>
-          <button className="btn" onClick={zoomIn}>
-            <FiZoomIn />
-          </button>
-        </div>
-
         <div className="page-status">
           Page <strong>{currentPage}</strong> / {numPages || "—"}
         </div>
@@ -87,8 +78,7 @@ export default function PdfViewer({ src }) {
       </div>
 
       <div className="viewer-layout">
-
-        {/* Sidebar Thumbnails */}
+        {/* Thumbnails Sidebar */}
         <aside className="thumbs">
           {Array.from({ length: numPages || 0 }).map((_, idx) => (
             <div
@@ -125,6 +115,19 @@ export default function PdfViewer({ src }) {
 
           {loading && <div className="loading-overlay">Loading…</div>}
         </div>
+      </div>
+
+      {/* Floating Zoom Controls */}
+      <div className="zoom-floating">
+        <button className="zoom-btn" onClick={zoomOut}>
+          <FiZoomOut />
+        </button>
+        <button className="zoom-btn" onClick={resetZoom}>
+          <FiRefreshCcw />
+        </button>
+        <button className="zoom-btn" onClick={zoomIn}>
+          <FiZoomIn />
+        </button>
       </div>
     </div>
   );

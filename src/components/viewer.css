@@ -1,0 +1,146 @@
+.pdf-root {
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
+  padding: 12px;
+  color: var(--text-dark);
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: 12px 18px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.toolbar-left {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  background: #0e4d8a;
+  transform: translateY(-2px);
+}
+
+.btn.download {
+  background: var(--secondary);
+  color: #1a1a1a;
+}
+
+.btn.download:hover {
+  background: #dd8f12;
+}
+
+/* Layout */
+.viewer-layout {
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+}
+
+/* Sidebar Thumbnails */
+.thumbs {
+  width: 130px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.thumb {
+  border-radius: 12px;
+  padding: 6px;
+  cursor: pointer;
+  transition: 0.15s;
+  margin-bottom: 10px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.thumb:hover {
+  transform: scale(1.04);
+}
+
+.thumb.active {
+  border: 2px solid var(--primary);
+}
+
+/* Pages */
+.pages {
+  flex: 1;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+.page-holder {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.page-card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+}
+
+/* Floating Button */
+.fab {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  transition: 0.25s;
+}
+
+.fab:hover {
+  transform: translateY(-5px);
+}
+
+/* Mobile */
+@media (max-width: 880px) {
+  .thumbs {
+    display: none;
+  }
+}

@@ -64,6 +64,27 @@ export default function PdfViewer({ src }) {
     if (ref?.current) ref.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  // **Universal download function**
+  const downloadFile = () => {
+    fetch(src)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "document.pdf"; // fallback filename
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() =>
+        alert(
+          "Download failed. Ensure the file is publicly accessible from Vercel."
+        )
+      );
+  };
+
   return (
     <div className="pdf-root">
       {/* Top Toolbar */}
@@ -72,9 +93,9 @@ export default function PdfViewer({ src }) {
           Page <strong>{currentPage}</strong> / {numPages || "—"}
         </div>
 
-        <a href={src} download className="btn download">
+        <button className="btn download" onClick={downloadFile}>
           <FiDownload size={18} /> Download
-        </a>
+        </button>
       </div>
 
       <div className="viewer-layout">
